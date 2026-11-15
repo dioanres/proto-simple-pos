@@ -1,0 +1,5 @@
+ok - login dengan kredensial benar mengembalikan user
+ok - login dengan password salah mengembalikan null
+ok - cashier hanya bisa mengakses kasir
+ok - supervisor tidak bisa mengelola akun
+4 passed, 0 failed

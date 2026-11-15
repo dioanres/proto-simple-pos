@@ -1,0 +1,7 @@
+ok - username duplikat ditolak
+ok - password kurang dari 4 karakter ditolak
+ok - role tidak dikenal ditolak
+ok - superadmin terakhir tidak bisa dihapus
+ok - akun sendiri tidak bisa dihapus
+ok - upsertAccount menambah akun baru dengan id
+6 passed, 0 failed

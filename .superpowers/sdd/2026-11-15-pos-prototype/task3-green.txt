@@ -1,0 +1,8 @@
+ok - keranjang kosong ditolak untuk pay dan openBill
+ok - pembayaran cash kurang dari total ditolak
+ok - open bill tanpa meja ditolak
+ok - menambah item melebihi stok melempar error
+ok - changeDue tidak negatif saat cash cukup
+ok - payOpenBill mengubah status menjadi paid
+ok - applyStock mengurangi stok sesuai qty
+7 passed, 0 failed

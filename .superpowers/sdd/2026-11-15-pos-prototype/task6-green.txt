@@ -1,0 +1,7 @@
+ok - harga desimal atau negatif ditolak
+ok - nama kosong ditolak
+ok - stok tidak boleh negatif
+ok - formatRupiah memakai titik sebagai pemisah ribuan
+ok - upsertProduct menambah produk baru bila id kosong
+ok - upsertProduct mengubah produk yang sudah ada
+6 passed, 0 failed

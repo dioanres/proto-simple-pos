@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>POS Coffee Shop — Prototype</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Login -->
+  <section id="login" class="login">
+    <form id="login-form" class="card login-card">
+      <h1>POS Coffee Shop</h1>
+      <p class="muted">Masuk untuk melanjutkan</p>
+      <label>Username
+        <input id="login-username" name="username" autocomplete="username" required>
+      </label>
+      <label>Password
+        <input id="login-password" name="password" type="password" autocomplete="current-password" required>
+      </label>
+      <p id="login-error" class="error" role="alert"></p>
+      <button type="submit" class="btn primary block">Masuk</button>
+    </form>
+  </section>
+
+  <!-- Aplikasi utama -->
+  <div id="app" hidden>
+    <aside id="nav" class="sidebar">
+      <div class="brand">POS Coffee</div>
+      <nav>
+        <button type="button" data-screen="kasir">Kasir</button>
+        <button type="button" data-screen="dashboard">Dashboard</button>
+        <button type="button" data-screen="produk">Produk &amp; Stok</button>
+        <button type="button" data-screen="akun">Akun</button>
+        <button type="button" data-screen="report">Report</button>
+      </nav>
+      <div class="sidebar-foot">
+        <span id="user-label" class="muted"></span>
+        <button type="button" id="logout-btn" class="btn ghost">Keluar</button>
+      </div>
+    </aside>
+
+    <main class="content">
+      <section id="screen-kasir" class="screen" hidden>
+        <header class="page-head">
+          <h2>Kasir</h2>
+          <div class="openbill-wrap">
+            <button type="button" id="kasir-openbill-toggle" class="btn ghost">Open Bill: 0</button>
+            <div id="kasir-openlist" class="openlist card" hidden></div>
+          </div>
+        </header>
+        <div class="kasir-grid">
+          <div class="catalog card">
+            <input id="kasir-search" type="search" placeholder="Cari produk (Enter untuk tambah)" autocomplete="off">
+            <div id="kasir-cats" class="chips"></div>
+            <div id="kasir-products" class="products"></div>
+          </div>
+          <div class="cart card">
+            <p id="kasir-editing" class="muted" hidden></p>
+            <label>Meja
+              <input id="kasir-table" inputmode="numeric" placeholder="cth. 05" autocomplete="off">
+            </label>
+            <ul id="kasir-items" class="items"></ul>
+            <div class="total-row"><span>Total</span><strong id="kasir-total">Rp 0</strong></div>
+            <fieldset class="pay">
+              <legend>Pembayaran</legend>
+              <label class="radio"><input type="radio" name="pay" value="cash" checked> Cash</label>
+              <label class="radio"><input type="radio" name="pay" value="transfer"> Transfer</label>
+              <label class="radio"><input type="radio" name="pay" value="qris"> QRIS</label>
+            </fieldset>
+            <label id="kasir-paid-wrap">Dibayar
+              <input id="kasir-paid" inputmode="numeric" placeholder="0" autocomplete="off">
+            </label>
+            <div class="total-row"><span>Kembali</span><strong id="kasir-change">Rp 0</strong></div>
+            <p id="kasir-msg" class="error" role="alert"></p>
+            <div class="actions">
+              <button type="button" id="kasir-clear" class="btn ghost">Kosongkan</button>
+              <button type="button" id="kasir-save-openbill" class="btn">Simpan Open Bill</button>
+              <button type="button" id="kasir-pay" class="btn primary">Bayar</button>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section id="screen-dashboard" class="screen" hidden>
+        <header class="page-head">
+          <h2>Dashboard</h2>
+          <select id="dash-range" aria-label="Rentang">
+            <option value="today">Hari ini</option>
+            <option value="7">7 hari</option>
+            <option value="30">30 hari</option>
+          </select>
+        </header>
+        <div id="dash-cards" class="stats"></div>
+        <div class="two-col">
+          <div class="card">
+            <h3>Pembayaran</h3>
+            <div id="dash-bars"></div>
+          </div>
+          <div class="card">
+            <h3>Produk terlaris</h3>
+            <ol id="dash-top" class="toplist"></ol>
+          </div>
+        </div>
+      </section>
+      <section id="screen-produk" class="screen" hidden>
+        <header class="page-head"><h2>Produk &amp; Stok</h2></header>
+        <div class="two-col">
+          <div class="card table-wrap">
+            <table class="table">
+              <thead><tr><th>Nama</th><th>Kategori</th><th class="num">Harga</th><th class="num">Stok</th><th></th></tr></thead>
+              <tbody id="prod-rows"></tbody>
+            </table>
+          </div>
+          <form id="prod-form" class="card">
+            <h3 id="prod-form-title">Tambah produk</h3>
+            <input id="prod-id" type="hidden">
+            <label>Nama <input id="prod-name" autocomplete="off" required></label>
+            <label>Kategori <input id="prod-category" list="prod-cats" autocomplete="off" required>
+              <datalist id="prod-cats"></datalist></label>
+            <label>Harga (Rp) <input id="prod-price" inputmode="numeric" required></label>
+            <label>Stok <input id="prod-stock" inputmode="numeric" required></label>
+            <p id="prod-msg" class="error" role="alert"></p>
+            <div class="actions">
+              <button type="button" id="prod-cancel" class="btn ghost">Batal</button>
+              <button type="submit" class="btn primary">Simpan</button>
+            </div>
+          </form>
+        </div>
+      </section>
+      <section id="screen-akun" class="screen" hidden>
+        <header class="page-head"><h2>Akun</h2></header>
+        <div class="two-col">
+          <div class="card table-wrap">
+            <table class="table">
+              <thead><tr><th>Nama</th><th>Username</th><th>Role</th><th></th></tr></thead>
+              <tbody id="acc-rows"></tbody>
+            </table>
+          </div>
+          <form id="acc-form" class="card">
+            <h3 id="acc-form-title">Tambah akun</h3>
+            <input id="acc-id" type="hidden">
+            <label>Nama <input id="acc-name" autocomplete="off" required></label>
+            <label>Username <input id="acc-username" autocomplete="off" required></label>
+            <label>Role
+              <select id="acc-role">
+                <option value="cashier">Kasir</option>
+                <option value="supervisor">Supervisor</option>
+                <option value="superadmin">Superadmin</option>
+              </select>
+            </label>
+            <label>Password <input id="acc-password" type="password" autocomplete="new-password"></label>
+            <p id="acc-msg" class="error" role="alert"></p>
+            <div class="actions">
+              <button type="button" id="acc-cancel" class="btn ghost">Batal</button>
+              <button type="submit" class="btn primary">Simpan</button>
+            </div>
+          </form>
+        </div>
+      </section>
+      <section id="screen-report" class="screen" hidden>
+        <header class="page-head"><h2>Report</h2></header>
+        <div class="card report-card">
+          <div class="report-range">
+            <label>Dari <input id="rep-from" type="date"></label>
+            <label>Sampai <input id="rep-to" type="date"></label>
+          </div>
+          <p id="rep-count" class="muted"></p>
+          <div class="actions">
+            <button type="button" id="rep-download" class="btn primary">Download CSV</button>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="js/storage.js"></script>
+  <script src="js/sales.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/products.js"></script>
+  <script src="js/accounts.js"></script>
+  <script src="js/dashboard.js"></script>
+  <script src="js/report.js"></script>
+  <script src="js/kasir.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

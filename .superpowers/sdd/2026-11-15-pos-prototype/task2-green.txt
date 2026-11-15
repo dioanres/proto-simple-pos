@@ -1,0 +1,4 @@
+ok - loadData mengisi data contoh saat storage kosong
+ok - loadData memulihkan JSON rusak tanpa crash
+ok - saveData lalu loadData mengembalikan data yang sama
+3 passed, 0 failed

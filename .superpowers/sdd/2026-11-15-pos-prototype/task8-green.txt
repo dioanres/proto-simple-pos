@@ -1,0 +1,3 @@
+ok - summarize hanya menghitung order yang sudah dibayar dalam rentang
+ok - summarize menghitung omzet per metode dan produk terlaris
+2 passed, 0 failed
